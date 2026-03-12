@@ -1,40 +1,44 @@
-from textblob import TextBlob
 import streamlit as st
+from textblob import TextBlob
 from googletrans import Translator
-import json
 from streamlit_lottie import st_lottie
+import json
 
-# Cargar animación
-with open("emoji_animation.json", "rb") as f:
-    animation = json.load(f)
+# -------- Cargar animación --------
+def load_lottie_file(filepath):
+    with open(filepath, "rb") as f:
+        return json.load(f)
 
+animation = load_lottie_file("emoji_animation.json")
+
+# -------- Interfaz --------
 st_lottie(animation, height=250)
 
 st.title("Análisis de Sentimiento")
-
-st.subheader("Por favor escribe en el campo de texto la frase que deseas analizar")
+st.subheader("Escribe una frase para analizar su sentimiento")
 
 translator = Translator()
 
-# Sidebar explicativa
+# -------- Sidebar informativa --------
 with st.sidebar:
     st.subheader("Polaridad y Subjetividad")
 
     st.write("""
-    **Polaridad:** indica si el sentimiento es positivo, negativo o neutral.  
-    Va de **-1 (muy negativo)** a **1 (muy positivo)**.
+    **Polaridad:** indica si el sentimiento del texto es positivo, negativo o neutral.  
+    Va desde **-1 (muy negativo)** hasta **1 (muy positivo)**.
 
-    **Subjetividad:** mide si el texto expresa opinión o hechos.  
+    **Subjetividad:** mide cuánto del texto es opinión o emoción.  
     Va de **0 (objetivo)** a **1 (subjetivo)**.
     """)
 
-# Entrada de texto
+# -------- Entrada de texto --------
 with st.expander("Analizar texto"):
 
-    text = st.text_input("Escribe por favor:")
+    text = st.text_input("Escribe una frase:")
 
     if text:
 
+        # traducir a inglés para el análisis
         translation = translator.translate(text, src="es", dest="en")
         trans_text = translation.text
 
@@ -43,17 +47,17 @@ with st.expander("Analizar texto"):
         polarity = round(blob.sentiment.polarity, 2)
         subjectivity = round(blob.sentiment.subjectivity, 2)
 
-        st.write("Polaridad:", polarity)
-        st.write("Subjetividad:", subjectivity)
+        st.write("**Polaridad:**", polarity)
+        st.write("**Subjetividad:**", subjectivity)
 
-        # Interacción basada en sentimiento
+        # -------- Interacción según sentimiento --------
         if polarity > 0:
-            st.success("Es un sentimiento POSITIVO 😊")
+            st.success("Sentimiento POSITIVO 😊")
             st.balloons()
 
         elif polarity < 0:
-            st.error("Es un sentimiento NEGATIVO 😔")
+            st.error("Sentimiento NEGATIVO 😔")
             st.snow()
 
         else:
-            st.info("Es un sentimiento NEUTRAL 😐")
+            st.info("Sentimiento NEUTRAL 😐")
