@@ -11,7 +11,7 @@ def load_lottieurl(url):
     if r.status_code != 200:
         return None
     return r.json()
-lottie_url = "https://lottie.host/884c98b0-65da-478b-8126-839b5d5b847e/ehKC1QIWBI.lottie"
+lottie_url = "https://app.lottiefiles.com/share/68f78729-4d78-4dc2-8a2e-3d2b48353a45"
 animation = load_lottieurl(lottie_url)
 st_lottie(animation, height=300)
 
