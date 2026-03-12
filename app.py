@@ -2,15 +2,18 @@ import streamlit as st
 from textblob import TextBlob
 from googletrans import Translator
 from streamlit_lottie import st_lottie
-import json
+import requests
 
-# -------- Cargar animación --------
-def load_lottie_file(filepath):
-    with open(filepath, "rb") as f:
-        data = f.read().decode("utf-8", errors="ignore")
-        return json.loads(data)
+# -------- Cargar animación desde URL --------
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
-animation = load_lottie_file("emoji_animation.json")
+lottie_url = "https://assets5.lottiefiles.com/packages/lf20_touohxv0.json"
+
+animation = load_lottieurl(lottie_url)
 
 # -------- Interfaz --------
 st_lottie(animation, height=250)
