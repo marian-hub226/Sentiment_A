@@ -3,6 +3,18 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 from googletrans import Translator
+import requests
+from streamlit_lottie import st_lottie
+
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+lottie_url = "https://lottie.host/884c98b0-65da-478b-8126-839b5d5b847e/ehKC1QIWBI.lottie"
+animation = load_lottieurl(lottie_url)
+st_lottie(animation, height=300)
+
 
 st.title('Análisis de Sentimiento')
 image = Image.open('emoticones.jpg')
