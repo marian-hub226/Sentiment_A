@@ -9,7 +9,7 @@ from streamlit_lottie import st_lottie
 import json
 from streamlit_lottie import st_lottie
 
-with open("Cool emoji animation.json") as f:
+with open("Cool emoji animation.json", encoding="utf-8") as f:
     animation = json.load(f)
 
 st_lottie(animation, height=300)
