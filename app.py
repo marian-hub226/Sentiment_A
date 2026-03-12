@@ -1,6 +1,5 @@
 from textblob import TextBlob
 import streamlit as st
-from PIL import Image
 from googletrans import Translator
 import json
 from streamlit_lottie import st_lottie
@@ -12,9 +11,6 @@ with open("emoji_animation.json", "r", encoding="utf-8") as f:
 st_lottie(animation, height=250)
 
 st.title("Análisis de Sentimiento")
-
-image = Image.open("emoticones.jpg")
-st.image(image)
 
 st.subheader("Por favor escribe en el campo de texto la frase que deseas analizar")
 
