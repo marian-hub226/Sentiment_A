@@ -6,13 +6,12 @@ from googletrans import Translator
 import requests
 from streamlit_lottie import st_lottie
 
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-lottie_url = "https://app.lottiefiles.com/share/68f78729-4d78-4dc2-8a2e-3d2b48353a45"
-animation = load_lottieurl(lottie_url)
+import json
+from streamlit_lottie import st_lottie
+
+with open("Cool emoji animation.json") as f:
+    animation = json.load(f)
+
 st_lottie(animation, height=300)
 
 
