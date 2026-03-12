@@ -7,7 +7,8 @@ import json
 # -------- Cargar animación --------
 def load_lottie_file(filepath):
     with open(filepath, "rb") as f:
-        return json.load(f)
+        data = f.read().decode("utf-8", errors="ignore")
+        return json.loads(data)
 
 animation = load_lottie_file("emoji_animation.json")
 
