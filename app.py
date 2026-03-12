@@ -5,7 +5,7 @@ import json
 from streamlit_lottie import st_lottie
 
 # Cargar animación
-with open("emoji_animation.json", "r", encoding="utf-8") as f:
+with open("emoji_animation.json", "rb") as f:
     animation = json.load(f)
 
 st_lottie(animation, height=250)
